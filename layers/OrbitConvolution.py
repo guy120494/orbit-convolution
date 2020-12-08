@@ -12,16 +12,15 @@ class OrbitConvolution(Layer):
         super(OrbitConvolution, self).__init__(**kwargs)
 
     def build(self, input_shape):
-        shape = tf.TensorShape([self.kernel_size, input_shape[-(self.axis + 2)], self.num_filters])
-        # only have a 3x3 kernel
-        # shape = self.kernel_size + (input_shape[-1], self.filters)
+        shape = tf.TensorShape([self.kernel_size, input_shape[-1], self.num_filters])
+
         self.kernel = self.add_weight(name='kernel', shape=shape,
                                       initializer='glorot_uniform')
         super(OrbitConvolution, self).build(input_shape)
 
     def call(self, x, **kwargs):
-        x = tf.math.reduce_sum(x, axis=self.axis + 2)
-        return keras.backend.conv1d(x, self.kernel, padding='same')
+        x = tf.math.reduce_sum(x, axis=self.axis + 1)
+        return tf.nn.conv1d(x, self.kernel, padding='SAME', stride=1)
 
     def compute_output_shape(self, input_shape):
-        return self.kernel_size, input_shape[-(self.axis + 2)], self.num_filters
+        return self.kernel_size, input_shape[-(self.axis + 1)], self.num_filters
