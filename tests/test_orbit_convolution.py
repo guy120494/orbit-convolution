@@ -20,7 +20,7 @@ class OrbitConvolutionTest(tf.test.TestCase):
         result1 = tf.squeeze(layer(tf.convert_to_tensor(sample1)))
         result2 = tf.squeeze(layer(tf.convert_to_tensor(sample2)))
 
-        self.assertAllClose(result1, result2, msg="Not equivariant")
+        self.assertAllClose(result1, result2, msg="Not invariant")
 
     def test_equivariance_in_y_axis(self):
         layer = OrbitConvolution(kernel_size=3, num_filters=1)
@@ -35,7 +35,7 @@ class OrbitConvolutionTest(tf.test.TestCase):
         result1 = tf.squeeze(layer(tf.convert_to_tensor(sample1)))
         result2 = tf.squeeze(layer(tf.convert_to_tensor(sample2)))
 
-        self.assertAllClose(tf.roll(result1, -4, axis=0), result2, msg="Not invariant")
+        self.assertAllClose(tf.roll(result1, -4, axis=0), result2, msg="Not equivariant")
 
     def test_invariance_in_y_axis(self):
         layer = OrbitConvolution(kernel_size=3, num_filters=1, axis=1)
@@ -50,7 +50,7 @@ class OrbitConvolutionTest(tf.test.TestCase):
         result1 = tf.squeeze(layer(tf.convert_to_tensor(sample1)))
         result2 = tf.squeeze(layer(tf.convert_to_tensor(sample2)))
 
-        self.assertAllClose(result1, result2, msg="Not equivariant")
+        self.assertAllClose(result1, result2, msg="Not invariant")
 
     def test_equivariance_in_x_axis(self):
         layer = OrbitConvolution(kernel_size=3, num_filters=1, axis=1)
@@ -65,7 +65,7 @@ class OrbitConvolutionTest(tf.test.TestCase):
         result1 = tf.squeeze(layer(tf.convert_to_tensor(sample1)))
         result2 = tf.squeeze(layer(tf.convert_to_tensor(sample2)))
 
-        self.assertAllClose(tf.roll(result1, -4, axis=0), result2, msg="Not invariant")
+        self.assertAllClose(tf.roll(result1, -4, axis=0), result2, msg="Not equivariant")
 
 
 if __name__ == '__main__':
