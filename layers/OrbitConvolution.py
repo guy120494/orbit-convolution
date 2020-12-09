@@ -19,7 +19,7 @@ class OrbitConvolution(Layer):
         super(OrbitConvolution, self).build(input_shape)
 
     def call(self, x, **kwargs):
-        x = tf.math.reduce_sum(x, axis=self.axis + 1)
+        x = tf.math.reduce_mean(x, axis=self.axis + 1)
         return tf.nn.conv1d(x, self.kernel, padding='SAME', stride=1)
 
     def compute_output_shape(self, input_shape):
