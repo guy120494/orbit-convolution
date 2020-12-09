@@ -77,8 +77,8 @@ def test_model(model, test_set, rotate_test=False):
 
 if __name__ == '__main__':
     data_dir = pathlib.Path().absolute() / 'datasets' / 'spectrograms'
-    train_set = get_spectrograms(str(data_dir/'train'))
-    test_set = get_spectrograms(str(data_dir/'test'))
+    train_set = get_spectrograms(str(data_dir / 'train'))
+    test_set = get_spectrograms(str(data_dir / 'test'))
 
     model = BasicModel()
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
