@@ -9,6 +9,7 @@ from tensorflow import keras
 
 from datasets.data_sets_fetcher import get_datasets
 from models.BasicModel import BasicModel
+from preprocessing.fsdd import get_spectrograms, split_train_test
 
 EPOCHS = 1
 
@@ -75,7 +76,13 @@ def test_model(model, test_set, rotate_test=False):
 
 
 if __name__ == '__main__':
-    train, test = get_datasets()
-    model = BasicModel()
+    train_set = get_spectrograms("/Users/guy/PycharmProjects/orbitConvolution/datasets/spectrograms/train")
+    test_set = get_spectrograms("/Users/guy/PycharmProjects/orbitConvolution/datasets/spectrograms/test")
 
-    train_model(model, train)
+    model = BasicModel()
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
+
+    model.fit(x=train_set, epochs=20, verbose=1)
+
+    result = model.evaluate(test_set, return_dict=True)
+    print(result)
