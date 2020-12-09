@@ -3,7 +3,7 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import random
-
+import pathlib
 import tensorflow as tf
 from tensorflow import keras
 
@@ -76,8 +76,9 @@ def test_model(model, test_set, rotate_test=False):
 
 
 if __name__ == '__main__':
-    train_set = get_spectrograms("/Users/guy/PycharmProjects/orbitConvolution/datasets/spectrograms/train")
-    test_set = get_spectrograms("/Users/guy/PycharmProjects/orbitConvolution/datasets/spectrograms/test")
+    data_dir = pathlib.Path().absolute() / 'datasets' / 'spectrograms'
+    train_set = get_spectrograms(str(data_dir/'train'))
+    test_set = get_spectrograms(str(data_dir/'test'))
 
     model = BasicModel()
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
