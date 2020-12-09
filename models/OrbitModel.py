@@ -7,10 +7,10 @@ from layers.OrbitConvolution import OrbitConvolution
 
 class OrbitModel(Model):
 
-    def __init__(self):
+    def __init__(self, axis: int = 0):
         super(OrbitModel, self).__init__()
         self.first_cnn_layer = None
-        self.second_cnn_layer = OrbitConvolution(kernel_size=3, num_filters=64, axis=1)
+        self.second_cnn_layer = OrbitConvolution(kernel_size=3, num_filters=64, axis=axis)
         self.max_pooling = MaxPooling1D(pool_size=2)
         self.first_dropout = Dropout(0.25)
         self.flatten = Flatten()
