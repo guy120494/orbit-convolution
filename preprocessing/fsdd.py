@@ -52,7 +52,7 @@ def get_spectrograms(data_dir=None):
 
 def get_spectrogram_as_numpy(data_dir, file_name):
     spectrogram = Image.open(data_dir + '/' + file_name)
-    spectrogram = spectrogram.convert('RGB')
+    # spectrogram = spectrogram.convert('RGB')
     spectrogram = np.asarray(spectrogram)
     spectrogram = spectrogram / 255
     return spectrogram
