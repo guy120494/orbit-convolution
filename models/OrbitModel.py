@@ -14,7 +14,7 @@ class OrbitModel(Model):
         self.max_pooling = MaxPooling1D(pool_size=2)
         # self.first_dropout = Dropout(0.25)
         self.flatten = Flatten()
-        self.first_dense = Dense(256, activation='relu')
+        self.first_dense = Dense(512, activation='relu')
         # self.second_dropout = Dropout(0.5)
         self.second_dense = Dense(10, activation='softmax')
 
