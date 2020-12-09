@@ -7,9 +7,9 @@ import random
 import tensorflow as tf
 from tensorflow import keras
 
-from datasets.data_sets_fetcher import get_datasets
 from models.BasicModel import BasicModel
-from preprocessing.fsdd import get_spectrograms, split_train_test
+from models.OrbitModel import OrbitModel
+from preprocessing.fsdd import get_spectrograms
 
 EPOCHS = 1
 
@@ -85,4 +85,13 @@ if __name__ == '__main__':
     model.fit(x=train_set, epochs=20, verbose=1)
 
     result = model.evaluate(test_set, return_dict=True)
+    print(result)
+
+    orbit_model = OrbitModel()
+    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+                        metrics=['accuracy'])
+
+    orbit_model.fit(x=train_set, epochs=20, verbose=1)
+
+    result = orbit_model.evaluate(test_set, return_dict=True)
     print(result)
