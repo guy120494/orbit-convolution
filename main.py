@@ -83,16 +83,18 @@ if __name__ == '__main__':
     model = BasicModel()
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
 
-    model.fit(x=train_set, epochs=25, verbose=2)
+    model.fit(x=train_set, epochs=25, verbose=0)
 
     result = model.evaluate(test_set, return_dict=True)
     print(result)
+    print(model.summary())
 
     orbit_model = OrbitModel(axis=1)
     orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
                         metrics=['accuracy'])
 
-    orbit_model.fit(x=train_set, epochs=25, verbose=2)
+    orbit_model.fit(x=train_set, epochs=25, verbose=0)
 
     result = orbit_model.evaluate(test_set, return_dict=True)
     print(result)
+    print(orbit_model.summary())
