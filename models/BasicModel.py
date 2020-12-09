@@ -13,7 +13,7 @@ class BasicModel(Model):
         self.flatten = Flatten()
         self.first_dense = Dense(128, activation='relu')
         self.second_dropout = Dropout(0.5)
-        self.dense = Dense(10, activation='softmax')
+        self.second_dense = Dense(10, activation='softmax')
 
     def build(self, input_shape):
         self.first_cnn_layer = Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=input_shape)
@@ -24,7 +24,9 @@ class BasicModel(Model):
         x = self.max_pooling(x)
         x = self.first_dropout(x, training=training)
         x = self.flatten(x)
-        return self.dense(x)
+        x = self.first_dense(x)
+        x = self.second_dropout(x, training=training)
+        return self.second_dense(x)
 
     def get_config(self):
         pass
