@@ -47,10 +47,10 @@ class OrbitModel(Model):
         x = self.second_cnn_layer(x)
         x = tf.nn.relu(x)
         x = self.max_pooling(x)
-        # x = self.first_dropout(x, training=training)
+        x = self.first_dropout(x, training=training)
         x = self.flatten(x)
         x = self.first_dense(x)
-        x = self.second_dropout(x, training=training)
+        # x = self.second_dropout(x, training=training)
         return self.second_dense(x)
 
     def get_config(self):
