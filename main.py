@@ -104,9 +104,9 @@ if __name__ == '__main__':
     print("MEAN")
     print(compile_and_train(orbit__mean_model))
 
-    orbit__mean_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
+    orbit__max_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
     print("MAX")
-    print(compile_and_train(orbit__mean_model))
+    print(compile_and_train(orbit__max_model))
 
     # orbit_model = OrbitModel(axis=1)
     # orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
