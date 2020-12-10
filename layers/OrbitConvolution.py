@@ -14,7 +14,7 @@ class OrbitSumConvolution(Layer):
         shape = tf.TensorShape([self.kernel_size, input_shape[-1], self.num_filters])
 
         self.kernel = self.add_weight(name='kernel', shape=shape,
-                                      initializer='glorot_uniform')
+                                      initializer='glorot_normal')
         super(OrbitSumConvolution, self).build(input_shape)
 
     def call(self, x, **kwargs):
