@@ -108,6 +108,12 @@ if __name__ == '__main__':
     print("MAX")
     print(compile_and_train(orbit_max_model, train_set))
 
+    # model = BasicModel()
+    # model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+    #               metrics=['accuracy'])
+    # model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
+    # print(model.summary())
+    #
     # orbit_model = OrbitModel(axis=1)
     # orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
     #                     metrics=['accuracy'])
@@ -115,5 +121,4 @@ if __name__ == '__main__':
     # orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
     #
     # result = orbit_model.evaluate(test_set, return_dict=True)
-    # print(result)
     # print(orbit_model.summary())

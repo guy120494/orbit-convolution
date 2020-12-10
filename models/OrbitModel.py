@@ -24,12 +24,12 @@ class OrbitModel(Model):
         self.max_pooling = MaxPooling1D(pool_size=2)
         self.first_dropout = Dropout(0.25)
         self.flatten = Flatten()
-        self.first_dense = Dense(930, activation='relu')
+        self.first_dense = Dense(128, activation='relu')
         self.second_dropout = Dropout(0.5)
         self.second_dense = Dense(10, activation='softmax')
 
     def get_orbit_layer(self):
-        num_filters = 256
+        num_filters = 1850
         if self.invariance_type == InvarianceType.MAX:
             return OrbitMaxConvolution(name="orbit", kernel_size=3, num_filters=num_filters, axis=self.axis)
         elif self.invariance_type == InvarianceType.MEAN:
