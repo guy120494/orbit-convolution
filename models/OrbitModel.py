@@ -40,6 +40,7 @@ class OrbitModel(Model):
     def build(self, input_shape):
         self.first_cnn_layer = Conv2D(name="convolution", filters=32, kernel_size=(3, 3), activation='relu',
                                       input_shape=input_shape)
+        super(OrbitModel, self).build(input_shape)
 
     def call(self, inputs, training=None, mask=None):
         x = self.first_cnn_layer(inputs)
