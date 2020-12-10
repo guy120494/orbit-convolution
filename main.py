@@ -13,6 +13,7 @@ from models.OrbitModel import OrbitModel, InvarianceType
 from preprocessing.fsdd import get_spectrograms
 
 EPOCHS = 1
+tf.get_logger().setLevel('ERROR')
 
 
 def randomly_rotate(x):
