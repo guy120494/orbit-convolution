@@ -77,10 +77,10 @@ def test_model(model, test_set, rotate_test=False):
     return test_accuracy.result().numpy()
 
 
-def compile_and_train(model):
+def compile_and_train(model, training_set):
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
 
-    model.fit(x=train_set, epochs=25, verbose=0)
+    model.fit(x=training_set, epochs=25, verbose=0)
 
     return model.evaluate(test_set, return_dict=True)
 
@@ -92,21 +92,21 @@ if __name__ == '__main__':
 
     basic_model = BasicModel()
     print("BASIC")
-    print(compile_and_train(basic_model))
+    print(compile_and_train(basic_model, train_set))
     # print(model.summary())
 
     orbit_sum_model = OrbitModel(axis=1, invariance_type=InvarianceType.SUM)
     print("SUM")
-    print(compile_and_train(orbit_sum_model))
+    print(compile_and_train(orbit_sum_model, train_set))
     # print(orbit_model.summary())
 
-    orbit__mean_model = OrbitModel(axis=1, invariance_type=InvarianceType.MEAN)
+    orbit_mean_model = OrbitModel(axis=1, invariance_type=InvarianceType.MEAN)
     print("MEAN")
-    print(compile_and_train(orbit__mean_model))
+    print(compile_and_train(orbit_mean_model, train_set))
 
-    orbit__max_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
+    orbit_max_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
     print("MAX")
-    print(compile_and_train(orbit__max_model))
+    print(compile_and_train(orbit_max_model, train_set))
 
     # orbit_model = OrbitModel(axis=1)
     # orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
