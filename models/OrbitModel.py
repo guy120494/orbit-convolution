@@ -4,13 +4,15 @@ import tensorflow as tf
 from tensorflow.python.keras.layers import Conv2D, Dense, Flatten, MaxPooling1D, Dropout
 from tensorflow.python.keras.models import Model
 
-from layers.OrbitConvolution import OrbitSumConvolution, OrbitMeanConvolution, OrbitMaxConvolution
+from layers.OrbitConvolution import OrbitSumConvolution, OrbitMeanConvolution, OrbitMaxConvolution, \
+    OrbitLogSumExpConvolution
 
 
 class InvarianceType(Enum):
     MAX = auto()
     MEAN = auto()
     SUM = auto()
+    LOG_SUM_EXP = auto()
 
 
 class OrbitModel(Model):
@@ -36,6 +38,8 @@ class OrbitModel(Model):
             return OrbitMeanConvolution(name="orbit", kernel_size=3, num_filters=num_filters, axis=self.axis)
         elif self.invariance_type == InvarianceType.SUM:
             return OrbitSumConvolution(name="orbit", kernel_size=3, num_filters=num_filters, axis=self.axis)
+        elif self.invariance_type == InvarianceType.LOG_SUM_EXP:
+            return OrbitLogSumExpConvolution(name="orbit", kernel_size=3, num_filters=num_filters, axis=self.axis)
 
     def build(self, input_shape):
         self.first_cnn_layer = Conv2D(name="convolution", filters=32, kernel_size=(3, 3), activation='relu',

@@ -108,6 +108,10 @@ if __name__ == '__main__':
     print("MAX")
     print(compile_and_train(orbit_max_model, train_set))
 
+    orbit_log_sum_exp_model = OrbitModel(axis=1, invariance_type=InvarianceType.LOG_SUM_EXP)
+    print("LOG SUM EXP")
+    print(compile_and_train(orbit_log_sum_exp_model, train_set))
+
     # model = BasicModel()
     # model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
     #               metrics=['accuracy'])
