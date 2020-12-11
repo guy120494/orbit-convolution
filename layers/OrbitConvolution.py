@@ -14,7 +14,7 @@ class OrbitSumConvolution(Layer):
         shape = tf.TensorShape([self.kernel_size, input_shape[-1], self.num_filters])
 
         self.kernel = self.add_weight(name='kernel', shape=shape,
-                                      initializer='glorot_uniform')
+                                      initializer='he_uniform')
         super(OrbitSumConvolution, self).build(input_shape)
 
     def call(self, x, **kwargs):
@@ -37,7 +37,7 @@ class OrbitMaxConvolution(Layer):
         shape = tf.TensorShape([self.kernel_size, input_shape[-1], self.num_filters])
 
         self.kernel = self.add_weight(name='kernel', shape=shape,
-                                      initializer='glorot_uniform')
+                                      initializer='he_uniform')
         super(OrbitMaxConvolution, self).build(input_shape)
 
     def call(self, x, **kwargs):
@@ -60,7 +60,7 @@ class OrbitMeanConvolution(Layer):
         shape = tf.TensorShape([self.kernel_size, input_shape[-1], self.num_filters])
 
         self.kernel = self.add_weight(name='kernel', shape=shape,
-                                      initializer='glorot_uniform')
+                                      initializer='he_uniform')
         super(OrbitMeanConvolution, self).build(input_shape)
 
     def call(self, x, **kwargs):
