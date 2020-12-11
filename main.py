@@ -80,7 +80,7 @@ def test_model(model, test_set, rotate_test=False):
 def compile_and_train(model, training_set):
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
 
-    model.fit(x=training_set, epochs=25, verbose=0)
+    model.fit(x=training_set, epochs=35, verbose=0)
 
     return model.evaluate(test_set, return_dict=True)
 
