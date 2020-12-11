@@ -4,7 +4,7 @@ import pathlib
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import random
-
+import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
 
@@ -85,32 +85,49 @@ def compile_and_train(model, training_set):
     return model.evaluate(test_set, return_dict=True)
 
 
+def evaluate_models():
+    result = {"model": [], "loss": [], "accuracy": []}
+    basic_model = BasicModel()
+    result["model"].append("basic")
+    temp_result = compile_and_train(basic_model, train_set)
+    result["loss"].append(temp_result["loss"])
+    result["accuracy"].append(temp_result["accuracy"])
+
+    orbit_sum_model = OrbitModel(axis=1, invariance_type=InvarianceType.SUM)
+    result["model"].append("sum")
+    temp_result = compile_and_train(orbit_sum_model, train_set)
+    result["loss"].append(temp_result["loss"])
+    result["accuracy"].append(temp_result["accuracy"])
+
+    orbit_mean_model = OrbitModel(axis=1, invariance_type=InvarianceType.MEAN)
+    result["model"].append("mean")
+    temp_result = compile_and_train(orbit_mean_model, train_set)
+    result["loss"].append(temp_result["loss"])
+    result["accuracy"].append(temp_result["accuracy"])
+
+    orbit_max_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
+    result["model"].append("max")
+    temp_result = compile_and_train(orbit_max_model, train_set)
+    result["loss"].append(temp_result["loss"])
+    result["accuracy"].append(temp_result["accuracy"])
+
+    return result
+
+
 if __name__ == '__main__':
     data_dir = pathlib.Path().absolute() / 'datasets' / 'spectrograms'
     train_set = get_spectrograms(str(data_dir / 'train'))
     test_set = get_spectrograms(str(data_dir / 'test'))
 
-    basic_model = BasicModel()
-    print("BASIC")
-    print(compile_and_train(basic_model, train_set))
-    # print(model.summary())
+    result = {"model": [], "loss": [], "accuracy": []}
+    for i in range(10):
+        tmp = evaluate_models()
+        result["model"].extend(tmp["model"])
+        result["loss"].extend(tmp["loss"])
+        result["accuracy"].extend(tmp["accuracy"])
 
-    orbit_sum_model = OrbitModel(axis=1, invariance_type=InvarianceType.SUM)
-    print("SUM")
-    print(compile_and_train(orbit_sum_model, train_set))
-    # print(orbit_model.summary())
-
-    orbit_mean_model = OrbitModel(axis=1, invariance_type=InvarianceType.MEAN)
-    print("MEAN")
-    print(compile_and_train(orbit_mean_model, train_set))
-
-    orbit_max_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
-    print("MAX")
-    print(compile_and_train(orbit_max_model, train_set))
-
-    orbit_log_sum_exp_model = OrbitModel(axis=1, invariance_type=InvarianceType.LOG_SUM_EXP)
-    print("LOG SUM EXP")
-    print(compile_and_train(orbit_log_sum_exp_model, train_set))
+    result = pd.DataFrame(result)
+    result.to_csv(str(pathlib.Path().absolute()/"models-evals.csv"))
 
     # model = BasicModel()
     # model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
