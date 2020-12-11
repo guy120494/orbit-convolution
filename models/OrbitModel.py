@@ -27,7 +27,7 @@ class OrbitModel(Model):
         self.first_dropout = Dropout(0.25)
         self.flatten = Flatten()
         self.first_dense = Dense(128, activation='relu')
-        self.second_dropout = Dropout(0.5)
+        # self.second_dropout = Dropout(0.5)
         self.second_dense = Dense(10, activation='softmax')
 
     def get_orbit_layer(self):
@@ -54,7 +54,7 @@ class OrbitModel(Model):
         x = self.first_dropout(x, training=training)
         x = self.flatten(x)
         x = self.first_dense(x)
-        x = self.second_dropout(x, training=training)
+        # x = self.second_dropout(x, training=training)
         return self.second_dense(x)
 
     def get_config(self):
