@@ -4,7 +4,7 @@ import pathlib
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import random
-import pandas as pd
+
 import tensorflow as tf
 from tensorflow import keras
 
@@ -119,27 +119,50 @@ if __name__ == '__main__':
     train_set = get_spectrograms(str(data_dir / 'train'))
     test_set = get_spectrograms(str(data_dir / 'test'))
 
-    result = {"model": [], "loss": [], "accuracy": []}
-    for i in range(10):
-        tmp = evaluate_models()
-        result["model"].extend(tmp["model"])
-        result["loss"].extend(tmp["loss"])
-        result["accuracy"].extend(tmp["accuracy"])
+    # result = {"model": [], "loss": [], "accuracy": []}
+    # for i in range(10):
+    #     tmp = evaluate_models()
+    #     result["model"].extend(tmp["model"])
+    #     result["loss"].extend(tmp["loss"])
+    #     result["accuracy"].extend(tmp["accuracy"])
+    #
+    # result = pd.DataFrame(result)
+    # result.to_csv(str(pathlib.Path().absolute()/"models-evals.csv"))
 
-    result = pd.DataFrame(result)
-    result.to_csv(str(pathlib.Path().absolute()/"models-evals.csv"))
+    print("BASIC")
+    model = BasicModel()
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+                  metrics=['accuracy'])
+    model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
+    result = model.evaluate(test_set, return_dict=True)
+    print(result)
 
-    # model = BasicModel()
-    # model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
-    #               metrics=['accuracy'])
-    # model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
-    # print(model.summary())
-    #
-    # orbit_model = OrbitModel(axis=1)
-    # orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
-    #                     metrics=['accuracy'])
-    #
-    # orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
-    #
-    # result = orbit_model.evaluate(test_set, return_dict=True)
-    # print(orbit_model.summary())
+    print("SUM")
+    orbit_model = OrbitModel(invariance_type=InvarianceType.SUM, axis=1)
+    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+                        metrics=['accuracy'])
+
+    orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
+
+    result = orbit_model.evaluate(test_set, return_dict=True)
+    print(result)
+
+    print("MAX")
+    orbit_model = OrbitModel(invariance_type=InvarianceType.MAX, axis=1)
+    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+                        metrics=['accuracy'])
+
+    orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
+
+    result = orbit_model.evaluate(test_set, return_dict=True)
+    print(result)
+
+    print("MEAN")
+    orbit_model = OrbitModel(invariance_type=InvarianceType.MEAN, axis=1)
+    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+                        metrics=['accuracy'])
+
+    orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
+
+    result = orbit_model.evaluate(test_set, return_dict=True)
+    print(result)

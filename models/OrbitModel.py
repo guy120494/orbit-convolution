@@ -50,7 +50,7 @@ class OrbitModel(Model):
         x = self.first_cnn_layer(inputs)
         x = self.second_cnn_layer(x)
         x = tf.nn.relu(x)
-        x = self.max_pooling(x)
+        # x = self.max_pooling(x)
         x = self.first_dropout(x, training=training)
         x = self.flatten(x)
         x = self.first_dense(x)
