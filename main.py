@@ -114,6 +114,13 @@ def evaluate_models():
     return result
 
 
+def model_summary(model):
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
+                  metrics=['accuracy'])
+    model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
+    print(model.summary())
+
+
 if __name__ == '__main__':
     data_dir = pathlib.Path().absolute() / 'datasets' / 'spectrograms'
     train_set = get_spectrograms(str(data_dir / 'train'))
@@ -129,40 +136,5 @@ if __name__ == '__main__':
     # result = pd.DataFrame(result)
     # result.to_csv(str(pathlib.Path().absolute()/"models-evals.csv"))
 
-    print("BASIC")
-    model = BasicModel()
-    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
-                  metrics=['accuracy'])
-    model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
-    result = model.evaluate(test_set, return_dict=True)
-    print(result)
-
-    print("SUM")
-    orbit_model = OrbitModel(invariance_type=InvarianceType.SUM, axis=1)
-    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
-                        metrics=['accuracy'])
-
-    orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
-
-    result = orbit_model.evaluate(test_set, return_dict=True)
-    print(result)
-
-    print("MAX")
-    orbit_model = OrbitModel(invariance_type=InvarianceType.MAX, axis=1)
-    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
-                        metrics=['accuracy'])
-
-    orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
-
-    result = orbit_model.evaluate(test_set, return_dict=True)
-    print(result)
-
-    print("MEAN")
-    orbit_model = OrbitModel(invariance_type=InvarianceType.MEAN, axis=1)
-    orbit_model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),
-                        metrics=['accuracy'])
-
-    orbit_model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
-
-    result = orbit_model.evaluate(test_set, return_dict=True)
+    result = evaluate_models()
     print(result)
