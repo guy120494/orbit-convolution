@@ -1,7 +1,7 @@
 from enum import Enum, auto
 
 import tensorflow as tf
-from tensorflow.python.keras.layers import Conv2D, Dense, Flatten, MaxPooling1D, Dropout
+from tensorflow.python.keras.layers import Conv2D, Dense, Flatten, MaxPooling1D, Dropout, BatchNormalization
 from tensorflow.python.keras.models import Model
 
 from layers.OrbitConvolution import OrbitSumConvolution, OrbitMeanConvolution, OrbitMaxConvolution, \
@@ -23,6 +23,7 @@ class OrbitModel(Model):
         self.axis = axis
         self.first_cnn_layer = None
         self.second_cnn_layer = self.get_orbit_layer()
+        self.bn = BatchNormalization()
         # self.max_pooling = MaxPooling1D(pool_size=2)
         self.first_dropout = Dropout(0.25)
         self.flatten = Flatten()
@@ -50,8 +51,9 @@ class OrbitModel(Model):
         x = self.first_cnn_layer(inputs)
         x = self.second_cnn_layer(x)
         x = tf.nn.relu(x)
+        x = self.bn(x)
         # x = self.max_pooling(x)
-        x = self.first_dropout(x, training=training)
+        # x = self.first_dropout(x, training=training)
         x = self.flatten(x)
         x = self.first_dense(x)
         # x = self.second_dropout(x, training=training)
