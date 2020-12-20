@@ -22,7 +22,7 @@ class OrbitModel(Model):
         self.invariance_type = invariance_type
         self.axis = axis
         self.first_cnn_layer = None
-        self.bn1 = BatchNormalization()
+        # self.bn1 = BatchNormalization()
         self.second_cnn_layer = self.get_orbit_layer()
         self.relu = ReLU()
         # self.bn2 = BatchNormalization()
@@ -51,12 +51,12 @@ class OrbitModel(Model):
 
     def call(self, inputs, training=None, mask=None):
         x = self.first_cnn_layer(inputs)
-        # x = self.bn1(x)
+        x = self.bn1(x)
         x = self.second_cnn_layer(x)
         x = self.relu(x)
         # x = self.bn2(x)
         # x = self.max_pooling(x)
-        # x = self.first_dropout(x, training=training)
+        x = self.first_dropout(x, training=training)
         x = self.flatten(x)
         x = self.first_dense(x)
         # x = self.second_dropout(x, training=training)
