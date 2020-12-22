@@ -25,7 +25,7 @@ class OrbitModel(Model):
         self.bn1 = BatchNormalization()
         self.second_cnn_layer = self.get_orbit_layer()
         self.relu = ReLU()
-        # self.bn2 = BatchNormalization()
+        self.bn2 = BatchNormalization()
         # self.max_pooling = MaxPooling1D(pool_size=2)
         self.first_dropout = Dropout(0.25)
         self.flatten = Flatten()
