@@ -120,7 +120,6 @@ def model_summary(model):
     model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
     print(model.summary())
 
-
 if __name__ == '__main__':
     data_dir = pathlib.Path().absolute() / 'datasets' / 'spectrograms'
     train_set = get_spectrograms(str(data_dir / 'train'))
@@ -134,7 +133,7 @@ if __name__ == '__main__':
         result["accuracy"].extend(tmp["accuracy"])
 
     result = pd.DataFrame(result)
-    result.to_csv(str(pathlib.Path().absolute()/"models-evals.csv"))
+    result.to_csv(str(pathlib.Path().absolute() / "models-evals.csv"))
 
     # result = evaluate_models()
     # print(result)

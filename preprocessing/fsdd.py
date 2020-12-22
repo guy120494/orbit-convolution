@@ -1,9 +1,11 @@
-from tensorflow import keras
 import os
-import tensorflow as tf
+import random
 from shutil import copyfile
+
 import numpy as np
+import tensorflow as tf
 from PIL import Image
+from tensorflow import keras
 
 
 def split_train_test(source):
@@ -55,4 +57,10 @@ def get_spectrogram_as_numpy(data_dir, file_name):
     # spectrogram = spectrogram.convert('RGB')
     spectrogram = np.asarray(spectrogram)
     spectrogram = spectrogram / 255
+    spectrogram = translate_in_y_axis(spectrogram)
     return spectrogram
+
+
+def translate_in_y_axis(img: np.ndarray):
+    shift_number = random.randint(0, img.shape[1])
+    return tf.roll(img, shift=shift_number, axis=1)
