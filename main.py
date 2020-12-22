@@ -4,6 +4,7 @@ import pathlib
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import random
+
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
@@ -119,6 +120,7 @@ def model_summary(model):
                   metrics=['accuracy'])
     model.fit(x=train_set, epochs=1, steps_per_epoch=1, verbose=0)
     print(model.summary())
+
 
 if __name__ == '__main__':
     data_dir = pathlib.Path().absolute() / 'datasets' / 'spectrograms'
