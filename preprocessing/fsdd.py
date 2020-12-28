@@ -68,5 +68,5 @@ def translate_in_y_axis(img: np.ndarray):
 
 
 def mild_translate_in_y_axis(img: np.ndarray):
-    shift_number = random.randint(0, 6)
+    shift_number = random.randint(0, 20)
     return tf.roll(img, shift=shift_number, axis=1)
