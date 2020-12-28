@@ -57,10 +57,15 @@ def get_spectrogram_as_numpy(data_dir, file_name):
     # spectrogram = spectrogram.convert('RGB')
     spectrogram = np.asarray(spectrogram)
     spectrogram = spectrogram / 255
-    # spectrogram = translate_in_y_axis(spectrogram)
+    spectrogram = translate_in_y_axis(spectrogram)
     return spectrogram
 
 
 def translate_in_y_axis(img: np.ndarray):
     shift_number = random.randint(0, img.shape[1])
+    return tf.roll(img, shift=shift_number, axis=1)
+
+
+def mild_translate_in_y_axis(img: np.ndarray):
+    shift_number = random.randint(0, 6)
     return tf.roll(img, shift=shift_number, axis=1)
