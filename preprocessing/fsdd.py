@@ -58,7 +58,7 @@ def get_spectrogram_as_numpy(data_dir, file_name):
     spectrogram = np.asarray(spectrogram)
     spectrogram = spectrogram / 255
     # spectrogram = translate_in_y_axis(spectrogram)
-    spectrogram = mild_translate_in_y_axis(spectrogram)
+    # spectrogram = mild_translate_in_y_axis(spectrogram)
     return spectrogram
 
 
