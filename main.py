@@ -94,19 +94,19 @@ def evaluate_models():
     result["loss"].append(temp_result["loss"])
     result["accuracy"].append(temp_result["accuracy"])
 
-    orbit_sum_model = OrbitModel(axis=1, invariance_type=InvarianceType.SUM)
+    orbit_sum_model = OrbitModel(axis=0, invariance_type=InvarianceType.SUM)
     result["model"].append("sum")
     temp_result = compile_and_train(orbit_sum_model, train_set)
     result["loss"].append(temp_result["loss"])
     result["accuracy"].append(temp_result["accuracy"])
 
-    orbit_mean_model = OrbitModel(axis=1, invariance_type=InvarianceType.MEAN)
+    orbit_mean_model = OrbitModel(axis=0, invariance_type=InvarianceType.MEAN)
     result["model"].append("mean")
     temp_result = compile_and_train(orbit_mean_model, train_set)
     result["loss"].append(temp_result["loss"])
     result["accuracy"].append(temp_result["accuracy"])
 
-    orbit_max_model = OrbitModel(axis=1, invariance_type=InvarianceType.MAX)
+    orbit_max_model = OrbitModel(axis=0, invariance_type=InvarianceType.MAX)
     result["model"].append("max")
     temp_result = compile_and_train(orbit_max_model, train_set)
     result["loss"].append(temp_result["loss"])
